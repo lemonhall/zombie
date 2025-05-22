@@ -8,9 +8,13 @@ extends Node2D
 
 var time_since_last_spawn: float = 0.0
 
+@onready var zombie_container: Node2D = $ZombieContainer # 获取 ZombieContainer 节点
+
 func _ready():
 	# 初始化随机数生成器
 	randomize()
+	if zombie_container == null:
+		printerr("Node2D 节点 'ZombieContainer' 未找到！请在场景编辑器中添加它作为当前节点的子节点，并确保命名正确。")
 
 func _process(delta: float):
 	time_since_last_spawn += delta
@@ -22,6 +26,10 @@ func _process(delta: float):
 func spawn_zombie():
 	if zombie_scene == null:
 		printerr("僵尸场景未设置!")
+		return
+	
+	if zombie_container == null: # 再次检查
+		printerr("无法生成僵尸：Node2D 节点 'ZombieContainer' 未找到!")
 		return
 
 	var new_zombie = zombie_scene.instantiate()
@@ -37,6 +45,6 @@ func spawn_zombie():
 	# 可以给新生成的僵尸一个唯一的名字，方便调试
 	new_zombie.name = "Zombie_" + str(Time.get_ticks_msec())
 
-	# 将新僵尸添加到场景中
-	add_child(new_zombie)
-	print("生成新僵尸: %s at %s" % [new_zombie.name, new_zombie.global_position])
+	# 将新僵尸添加到 ZombieContainer 节点中
+	zombie_container.add_child(new_zombie)
+	print("生成新僵尸: %s at %s and added to ZombieContainer" % [new_zombie.name, new_zombie.global_position])

@@ -4,3 +4,6 @@
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_d21ai")
+
+[node name="ZombieContainer" type="Node2D" parent="."]
+y_sort_enabled = true
