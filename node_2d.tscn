@@ -7,3 +7,5 @@ script = ExtResource("1_d21ai")
 
 [node name="ZombieContainer" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]

@@ -6,15 +6,29 @@ extends Node2D
 @export var spawn_interval: float = 2.0  # 每隔多少秒生成一个僵尸
 @export var spawn_area_width: float = 800.0 # 僵尸生成的水平范围
 
+# 预加载背景音乐
+@export var bgm_stream: AudioStream = preload("res://music/zombie.mp3")
+
 var time_since_last_spawn: float = 0.0
 
 @onready var zombie_container: Node2D = $ZombieContainer # 获取 ZombieContainer 节点
+@onready var bgm_player: AudioStreamPlayer = $BGMPlayer # 获取 BGMPlayer 节点
 
 func _ready():
 	# 初始化随机数生成器
 	randomize()
 	if zombie_container == null:
 		printerr("Node2D 节点 'ZombieContainer' 未找到！请在场景编辑器中添加它作为当前节点的子节点，并确保命名正确。")
+
+	# 配置并播放背景音乐
+	if bgm_player and bgm_stream:
+		bgm_player.stream = bgm_stream
+		# 确保音乐循环播放 (除了在导入设置中勾选 Loop，也可以在代码中强制)
+		# 对于 AudioStreamMP3，导入设置中的 Loop 是关键。
+		# bgm_player.stream.loop_mode = AudioStreamMP3.LOOP_MODE_FORWARD # Godot 4.x specific for some stream types if needed, but import setting is primary for MP3
+		bgm_player.play()
+	elif not bgm_player:
+		printerr("AudioStreamPlayer 节点 'BGMPlayer' 未在 node_2d.tscn 中找到或正确命名！")
 
 func _process(delta: float):
 	time_since_last_spawn += delta

@@ -38,5 +38,7 @@ animations = [{
 scale = Vector2(0.239972, 0.239972)
 sprite_frames = SubResource("SpriteFrames_hqns4")
 autoplay = "default"
-frame_progress = 0.964623
+frame_progress = 0.557614
 script = ExtResource("7_tldye")
+
+[node name="GroanPlayer" type="AudioStreamPlayer2D" parent="."]
