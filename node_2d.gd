@@ -1,0 +1,42 @@
+extends Node2D
+
+# 预加载僵尸场景
+@export var zombie_scene: PackedScene = preload("res://zombie_character.tscn") # 确保路径正确
+
+@export var spawn_interval: float = 2.0  # 每隔多少秒生成一个僵尸
+@export var spawn_area_width: float = 800.0 # 僵尸生成的水平范围
+
+var time_since_last_spawn: float = 0.0
+
+func _ready():
+	# 初始化随机数生成器
+	randomize()
+
+func _process(delta: float):
+	time_since_last_spawn += delta
+
+	if time_since_last_spawn >= spawn_interval:
+		time_since_last_spawn = 0.0
+		spawn_zombie()
+
+func spawn_zombie():
+	if zombie_scene == null:
+		printerr("僵尸场景未设置!")
+		return
+
+	var new_zombie = zombie_scene.instantiate()
+	
+	# 设置僵尸的初始位置
+	# X 轴位置在 spawn_area_width 内随机，Y 轴在屏幕顶端稍上方
+	var spawn_x = randf_range(0, spawn_area_width) 
+	# 可以根据需要调整初始Y坐标，例如 -50 确保僵尸从屏幕外开始
+	var spawn_y = -50 
+	
+	new_zombie.global_position = Vector2(spawn_x, spawn_y)
+	
+	# 可以给新生成的僵尸一个唯一的名字，方便调试
+	new_zombie.name = "Zombie_" + str(Time.get_ticks_msec())
+
+	# 将新僵尸添加到场景中
+	add_child(new_zombie)
+	print("生成新僵尸: %s at %s" % [new_zombie.name, new_zombie.global_position])

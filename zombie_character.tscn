@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7luoa5a6cgnt"]
+
+[ext_resource type="Texture2D" uid="uid://bdbmwrmvwpvyh" path="res://anim/zombie/zombie_00.png" id="1_rnyi8"]
+[ext_resource type="Texture2D" uid="uid://bybtw6f5qcure" path="res://anim/zombie/zombie_01.png" id="2_tldye"]
+[ext_resource type="Texture2D" uid="uid://btot3xjcmdpej" path="res://anim/zombie/zombie_02.png" id="3_qsarc"]
+[ext_resource type="Texture2D" uid="uid://bp1idk0dnwjli" path="res://anim/zombie/zombie_03.png" id="4_6aip4"]
+[ext_resource type="Texture2D" uid="uid://lrnsbfnq8w3f" path="res://anim/zombie/zombie_04.png" id="5_bj6pq"]
+[ext_resource type="Texture2D" uid="uid://cnu4l53wiqhms" path="res://anim/zombie/zombie_05.png" id="6_w3dv0"]
+[ext_resource type="Script" uid="uid://chigq5ewdew7h" path="res://zombie.gd" id="7_tldye"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hqns4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_rnyi8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_tldye")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qsarc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_6aip4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bj6pq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_w3dv0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="zombie01" type="AnimatedSprite2D"]
+scale = Vector2(0.239972, 0.239972)
+sprite_frames = SubResource("SpriteFrames_hqns4")
+autoplay = "default"
+frame_progress = 0.964623
+script = ExtResource("7_tldye")
